@@ -1,7 +1,7 @@
 [project]
 name = "comfyui-jen"
 description = "Comfy UI custom nodes for JEN music generation powered by Futureverse"
-version = "1.0.1"
+version = "1.0.2"
 license = {file = "LICENSE.txt"}
 
 [project.urls]
