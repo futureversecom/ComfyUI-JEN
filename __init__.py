@@ -26,7 +26,7 @@ def json_read_update_write(filename_input, filename_output, content):
     with open(filename_output, 'w') as f:
         json.dump(data, f, indent=4)
 def jen_process_check(id):
-    url = "https://jen.futureverseai.com/api/v1/public/generation_status/{}".format(id)
+    url = "{}/api/v1/public/generation_status/{}".format(jen_api_endpoint, id)
     headers = {'accept': 'application/json', 'Authorization': 'Bearer {}'.format(jen_api_key)}
 
     response = requests.request("GET", url, headers=headers)
@@ -50,9 +50,17 @@ def jen_get_api_key_from_config():
     f = open(path_config)
     data = json.load(f)
     jen_api_key = data["JEN_API_KEY"]
-    return jen_api_key
 
-jen_api_key = jen_get_api_key_from_config()
+    path_api = os.path.join(p, "API.json")
+    f = open(p, path_api)
+    data = json.load(f)
+    jen_api_endpoint = data["API_ENDPOINT"]
+
+    data = json.load(f)
+
+    return jen_api_key, jen_api_endpoint
+
+jen_api_key, jen_api_endpoint = jen_get_api_key_from_config()
 
 class JEN_download:
     def __init__(self):
@@ -121,7 +129,7 @@ class JEN_generate:
         logging.info("path_generate {}".format(path_generate))
         id = ""; creditBalance = "/"
         if not local_test:
-            url = "https://jen.futureverseai.com/api/v1/public/track/generate"
+            url = "{}/api/v1/public/track/generate".format(jen_api_endpoint)
             payload = {'prompt': prompt, "format": format, "fadeOutLength": fadeOutLength, "duration": duration}
             # payload = json.dumps(payload)
             # payload = {'prompt': prompt, "format": format, "fadeOutLength": fadeOutLength, "duration": duration}
@@ -190,7 +198,7 @@ class JEN_extend:
         logging.info("path_extend {}".format(path_extend))
         creditBalance = "/"
         if not local_test:
-            url = "https://jen.futureverseai.com/api/v1/public/track/extend/{}".format(id)
+            url = "{}/api/v1/public/track/extend/{}".format(jen_api_endpoint, id)
             payload = {'prompt': prompt, "format": format, "fadeOutLength": fadeOutLength, "duration": duration}
             # payload = json.dumps(payload)
             # payload = {'prompt': prompt, "format": format, "fadeOutLength": fadeOutLength, "duration": duration}
