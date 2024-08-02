@@ -52,11 +52,9 @@ def jen_get_api_key_from_config():
     jen_api_key = data["JEN_API_KEY"]
 
     path_api = os.path.join(p, "API.json")
-    f = open(p, path_api)
-    data = json.load(f)
-    jen_api_endpoint = data["API_ENDPOINT"]
-
-    data = json.load(f)
+    f1 = open(path_api)
+    data = json.load(f1)
+    jen_api_endpoint = data["JEN_API_ENDPOINT"]
 
     return jen_api_key, jen_api_endpoint
 
