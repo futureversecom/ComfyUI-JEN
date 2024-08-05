@@ -72,7 +72,7 @@ class JEN_download:
         return {
             "required": {
                 "id": ("STRING", {"default": "123-123-123"}),
-                "format": ("STRING", {"default": "mp3"}),
+                "format": (["mp3", "wav"], {"default": "mp3"}),
                 "dest_dir": ("STRING", {"default": "output/JEN"}),
             }
         }
@@ -85,7 +85,6 @@ class JEN_download:
     CATEGORY = "JEN"
 
     def run(self, id, format, dest_dir):
-        assert format in ["wav", "mp3"]
         os.makedirs(os.path.join(dir_current, dest_dir), exist_ok=True)
         dest_dir = os.path.join(dir_current, dest_dir)
         path_generate = os.path.join(dest_dir, "download." + format)
@@ -106,9 +105,9 @@ class JEN_generate:
         return {
             "required": {
                 "prompt": ("STRING", {"default": "party edm"}),
-                "format": ("STRING", {"default": "mp3"}),
+                "format": (["mp3", "wav"], {"default": "mp3"}),
                 "fadeOutLength": ("INT", {"default": 0}),
-                "duration": ("INT", {"default": 10}),
+                "duration": ("INT", {"default": 10, "min": 10, "max": 45, "step": 35}),
                 "dest_dir": ("STRING", {"default": "output/JEN"}),
             }
         }
@@ -121,7 +120,6 @@ class JEN_generate:
     CATEGORY = "JEN"
 
     def run(self, prompt, format, fadeOutLength, duration, dest_dir):
-        assert format in ["wav", "mp3"]
         assert duration in [10, 45]
         os.makedirs(os.path.join(dir_current, dest_dir), exist_ok=True)
         dest_dir = os.path.join(dir_current, dest_dir)
@@ -174,9 +172,9 @@ class JEN_extend:
             "required": {
                 "id": ("STRING", {"default": "123-123-123"}),
                 "prompt": ("STRING", {"default": "party edm"}),
-                "format": ("STRING", {"default": "mp3"}),
+                "format": (["mp3", "wav"], {"default": "mp3"}),
                 "fadeOutLength": ("INT", {"default": 0}),
-                "duration": ("INT", {"default": 20}),
+                "duration": ("INT", {"default": 20, "min": 20, "max": 40, "step": 20}),
                 "dest_dir": ("STRING", {"default": "output/JEN"}),
             }
         }
@@ -189,7 +187,6 @@ class JEN_extend:
     CATEGORY = "JEN"
 
     def run(self, id, prompt, format, fadeOutLength, duration, dest_dir):
-        assert format in ["wav", "mp3"]
         assert duration in [20, 40]
         os.makedirs(os.path.join(dir_current, dest_dir), exist_ok=True)
         dest_dir = os.path.join(dir_current, dest_dir)
