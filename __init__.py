@@ -230,9 +230,9 @@ class JEN_extend:
 
 # export node
 NODE_CLASS_MAPPINGS = {
-    jen_node_mapping["class-JEN_generate"]: "JEN_generate",
-    jen_node_mapping["class-JEN_download"]: "JEN_download",
-    jen_node_mapping["class-JEN_extend"]: "JEN_extend"
+    jen_node_mapping["class-JEN_generate"]: JEN_generate,
+    jen_node_mapping["class-JEN_download"]: JEN_download,
+    jen_node_mapping["class-JEN_extend"]: JEN_extend
 }
 NODE_DISPLAY_NAME_MAPPINGS = {
     jen_node_mapping["class-JEN_generate"]: jen_node_mapping["display-JEN_generate"],
