@@ -155,7 +155,7 @@ class JEN_generate:
                     logging.info(str(e))
                 time.sleep(5)
                 count += 1
-                if count > 15:
+                if count > 30:
                     logging.info("timeout waiting for geneartion, you can still check your results by id")
                     break
 

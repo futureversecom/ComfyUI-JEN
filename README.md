@@ -15,6 +15,9 @@ You will need API key to run the nodes, no local model required.
 1. Sign up to JEN from https://app.jenmusic.ai/
 2. Request API key from dashboard (feature about to release)
 3. Create a config.json file under ComfyUI-JEN, copy and paste your API key in the file and save
+4. run example workflow under workflow/
+5. results will be automatically stored under dest_dir (default output/JEN)
+6. file generate
 ```json
 {
     "JEN_API_KEY": "YOUR_JEN_API_KEY"
