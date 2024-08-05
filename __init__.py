@@ -25,7 +25,7 @@ def json_read_update_write(filename_input, filename_output, content):
     logging.info("file_output {}".format(data),)
     with open(filename_output, 'w') as f:
         json.dump(data, f, indent=4)
-def jen_process_check(id):
+def jen_process_check(id, jen_api_key):
     url = "{}/api/v1/public/generation_status/{}".format(jen_api_endpoint, id)
     headers = {'accept': 'application/json', 'Authorization': 'Bearer {}'.format(jen_api_key)}
 
@@ -51,28 +51,43 @@ def jen_setup():
     data = json.load(f)
     jen_api_key = data["JEN_API_KEY"]
 
-    path_api = os.path.join(p, "API.json")
-    f1 = open(path_api)
-    data = json.load(f1)
-    jen_api_endpoint = data["JEN_API_ENDPOINT"]
+    try:
+        path_api = os.path.join(p, "API.json")
+        f1 = open(path_api)
+        data = json.load(f1)
+        jen_api_endpoint = data["JEN_API_ENDPOINT"]
+    except:
+        jen_api_endpoint = None
 
     path_node = os.path.join(p, "node.json")
     f2 = open(path_node)
     jen_node_mapping = json.load(f2)
 
     return jen_api_key, jen_api_endpoint, jen_node_mapping
+def orverwrite_key_if_valid(jen_api_key_prompt, jen_api_key_config):
+    print("jen_api_key_prompt", jen_api_key_prompt)
+    print("jen_api_key_config", jen_api_key_config)
+    if jen_api_key_prompt !="":
+        return jen_api_key_prompt
+    else:
+        if jen_api_key_config != None:
+            return jen_api_key_config
+        else:
+            raise ValueError("please obtain JEN API key from JEN dashboard")
 
 jen_api_key, jen_api_endpoint, jen_node_mapping = jen_setup()
 
 class JEN_download:
     def __init__(self):
-        pass
+        self.jen_api_key = jen_api_key
+
     @classmethod
     def INPUT_TYPES(s):
         return {
             "required": {
                 "id": ("STRING", {"default": "123-123-123"}),
                 "format": (["mp3", "wav"], {"default": "mp3"}),
+                "jen_api_key": ("STRING", {"default": ""}),
                 "dest_dir": ("STRING", {"default": "output/JEN"}),
             }
         }
@@ -84,13 +99,14 @@ class JEN_download:
     OUTPUT_NODE = True
     CATEGORY = "JEN"
 
-    def run(self, id, format, dest_dir):
+    def run(self, id, format, jen_api_key, dest_dir):
+        self.jen_api_key = orverwrite_key_if_valid(jen_api_key, self.jen_api_key)
         os.makedirs(os.path.join(dir_current, dest_dir), exist_ok=True)
         dest_dir = os.path.join(dir_current, dest_dir)
         path_generate = os.path.join(dest_dir, "download." + format)
         logging.info("path_generate {}".format(path_generate))
         if True:
-            validated, download_url = jen_process_check(id)
+            validated, download_url = jen_process_check(id, self.jen_api_key)
             if validated:
                 data_genearte = requests.get(download_url).content
                 with open(path_generate, "wb") as handler:
@@ -99,7 +115,7 @@ class JEN_download:
 
 class JEN_generate:
     def __init__(self):
-        pass
+        self.jen_api_key = jen_api_key
     @classmethod
     def INPUT_TYPES(s):
         return {
@@ -108,6 +124,7 @@ class JEN_generate:
                 "format": (["mp3", "wav"], {"default": "mp3"}),
                 "fadeOutLength": ("INT", {"default": 0}),
                 "duration": ("INT", {"default": 10, "min": 10, "max": 45, "step": 35}),
+                "jen_api_key": ("STRING", {"default": ""}),
                 "dest_dir": ("STRING", {"default": "output/JEN"}),
             }
         }
@@ -119,7 +136,8 @@ class JEN_generate:
     OUTPUT_NODE = True
     CATEGORY = "JEN"
 
-    def run(self, prompt, format, fadeOutLength, duration, dest_dir):
+    def run(self, prompt, format, fadeOutLength, duration, jen_api_key, dest_dir):
+        self.jen_api_key = orverwrite_key_if_valid(jen_api_key, self.jen_api_key)
         assert duration in [10, 45]
         os.makedirs(os.path.join(dir_current, dest_dir), exist_ok=True)
         dest_dir = os.path.join(dir_current, dest_dir)
@@ -132,7 +150,7 @@ class JEN_generate:
             # payload = json.dumps(payload)
             # payload = {'prompt': prompt, "format": format, "fadeOutLength": fadeOutLength, "duration": duration}
             logging.info("payload {}".format(payload))
-            headers = {'accept': 'application/json', 'Authorization': 'Bearer {}'.format(jen_api_key)}
+            headers = {'accept': 'application/json', 'Authorization': 'Bearer {}'.format(self.jen_api_key)}
             response = requests.request("POST", url, headers=headers, json=payload)
 
             response = response.json()
@@ -144,7 +162,7 @@ class JEN_generate:
             while (True):
                 try:
                     logging.info("checking progress")
-                    validated, download_url = jen_process_check(id)
+                    validated, download_url = jen_process_check(id, self.jen_api_key)
                     if validated:
                         data_genearte = requests.get(download_url).content
                         with open(path_generate, "wb") as handler:
@@ -165,7 +183,7 @@ class JEN_generate:
 
 class JEN_extend:
     def __init__(self):
-        pass
+        self.jen_api_key = jen_api_key
     @classmethod
     def INPUT_TYPES(s):
         return {
@@ -175,6 +193,7 @@ class JEN_extend:
                 "format": (["mp3", "wav"], {"default": "mp3"}),
                 "fadeOutLength": ("INT", {"default": 0}),
                 "duration": ("INT", {"default": 20, "min": 20, "max": 40, "step": 20}),
+                "jen_api_key": ("STRING", {"default": ""}),
                 "dest_dir": ("STRING", {"default": "output/JEN"}),
             }
         }
@@ -186,7 +205,8 @@ class JEN_extend:
     OUTPUT_NODE = True
     CATEGORY = "JEN"
 
-    def run(self, id, prompt, format, fadeOutLength, duration, dest_dir):
+    def run(self, id, prompt, format, fadeOutLength, duration, jen_api_key, dest_dir):
+        self.jen_api_key = orverwrite_key_if_valid(jen_api_key, self.jen_api_key)
         assert duration in [20, 40]
         os.makedirs(os.path.join(dir_current, dest_dir), exist_ok=True)
         dest_dir = os.path.join(dir_current, dest_dir)
@@ -199,7 +219,7 @@ class JEN_extend:
             # payload = json.dumps(payload)
             # payload = {'prompt': prompt, "format": format, "fadeOutLength": fadeOutLength, "duration": duration}
             logging.info("payload {}".format(payload))
-            headers = {'accept': 'application/json', 'Authorization': 'Bearer {}'.format(jen_api_key)}
+            headers = {'accept': 'application/json', 'Authorization': 'Bearer {}'.format(self.jen_api_key)}
             response = requests.request("POST", url, headers=headers, json=payload)
 
             response = response.json()
@@ -211,7 +231,7 @@ class JEN_extend:
             while (True):
                 try:
                     logging.info("checking progress")
-                    validated, download_url = jen_process_check(id)
+                    validated, download_url = jen_process_check(id, self.jen_api_key)
                     if validated:
                         data_genearte = requests.get(download_url).content
                         with open(path_extend, "wb") as handler:
