@@ -1,5 +1,9 @@
 {
-    "JEN_generate": "ComfyUI-JEN-generate",
-    "JEN_download": "ComfyUI-JEN-download",
-    "JEN_extend": "ComfyUI-JEN-extend"
+    "class-JEN_generate": "JEN_generate",
+    "class-JEN_download": "JEN_download",
+    "class-JEN_extend": "JEN_extend",
+
+    "display-JEN_generate": "ComfyUI-JEN-generate",
+    "display-JEN_download": "ComfyUI-JEN-download",
+    "display-JEN_extend": "ComfyUI-JEN-extend"
 }
