@@ -46,18 +46,18 @@ def jen_process_check(id, jen_api_key):
             return True, download_url
 def jen_setup():
     p = os.path.dirname(os.path.realpath(__file__))
-    path_config = os.path.join(p, "config.json")
-    f = open(path_config)
-    data = json.load(f)
-    jen_api_key = data["JEN_API_KEY"]
-
     try:
-        path_api = os.path.join(p, "API.json")
-        f1 = open(path_api)
-        data = json.load(f1)
-        jen_api_endpoint = data["JEN_API_ENDPOINT"]
+        path_config = os.path.join(p, "config.json")
+        f = open(path_config)
+        data = json.load(f)
+        jen_api_key = data["JEN_API_KEY"]
     except:
-        jen_api_endpoint = None
+        jen_api_key = None
+
+    path_api = os.path.join(p, "API.json")
+    f1 = open(path_api)
+    data = json.load(f1)
+    jen_api_endpoint = data["JEN_API_ENDPOINT"]
 
     path_node = os.path.join(p, "node.json")
     f2 = open(path_node)
@@ -173,7 +173,7 @@ class JEN_generate:
                     logging.info(str(e))
                 time.sleep(5)
                 count += 1
-                if count > 30:
+                if count > 40:
                     logging.info("timeout waiting for geneartion, you can still check your results by id")
                     break
 
@@ -242,7 +242,7 @@ class JEN_extend:
                     logging.info(str(e))
                 time.sleep(5)
                 count += 1
-                if count > 20:
+                if count > 30:
                     logging.info("timeout waiting for geneartion, you can still check your results by id")
                     break
         audio = load_audio_comfy_format(path_extend)
