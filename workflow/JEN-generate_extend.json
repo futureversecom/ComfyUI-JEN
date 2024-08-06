@@ -1,38 +1,7 @@
 {
-  "last_node_id": 26,
-  "last_link_id": 14,
+  "last_node_id": 28,
+  "last_link_id": 22,
   "nodes": [
-    {
-      "id": 15,
-      "type": "AudioPlay",
-      "pos": [
-        863,
-        -124
-      ],
-      "size": {
-        "0": 210,
-        "1": 280
-      },
-      "flags": {},
-      "order": 2,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "audio",
-          "type": "AUDIO",
-          "link": 9
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "AudioPlay"
-      },
-      "widgets_values": [
-        [
-          "/view?filename=._00001_.wav&type=temp&subfolder=&rand=0.14675839704099047",
-          null
-        ]
-      ]
-    },
     {
       "id": 5,
       "type": "Display Any (rgthree)",
@@ -51,7 +20,7 @@
         {
           "name": "source",
           "type": "*",
-          "link": 3,
+          "link": 16,
           "dir": 3,
           "slot_index": 0
         }
@@ -81,7 +50,7 @@
         {
           "name": "source",
           "type": "*",
-          "link": 2,
+          "link": 17,
           "dir": 3,
           "slot_index": 0
         }
@@ -94,11 +63,67 @@
       ]
     },
     {
+      "id": 15,
+      "type": "AudioPlay",
+      "pos": [
+        837,
+        -124
+      ],
+      "size": {
+        "0": 210,
+        "1": 280
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 15
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "AudioPlay"
+      },
+      "widgets_values": [
+        [
+          "/view?filename=._00001_.wav&type=temp&subfolder=&rand=0.40604434149414925",
+          null
+        ]
+      ]
+    },
+    {
+      "id": 8,
+      "type": "PreviewAudio",
+      "pos": [
+        1086,
+        310
+      ],
+      "size": {
+        "0": 315,
+        "1": 76
+      },
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 20
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewAudio"
+      }
+    },
+    {
       "id": 7,
       "type": "Display Any (rgthree)",
       "pos": [
-        1120,
-        57
+        1108,
+        64
       ],
       "size": {
         "0": 210,
@@ -111,7 +136,7 @@
         {
           "name": "source",
           "type": "*",
-          "link": 14,
+          "link": 22,
           "dir": 3,
           "slot_index": 0
         }
@@ -141,7 +166,7 @@
         {
           "name": "source",
           "type": "*",
-          "link": 13,
+          "link": 21,
           "dir": 3,
           "slot_index": 0
         }
@@ -157,64 +182,33 @@
       "id": 9,
       "type": "PreviewAudio",
       "pos": [
-        1075,
-        191
+        1072,
+        183
       ],
       "size": {
         "0": 315,
         "1": 76
       },
       "flags": {},
-      "order": 1,
+      "order": 2,
       "mode": 0,
       "inputs": [
         {
           "name": "audio",
           "type": "AUDIO",
-          "link": 7
+          "link": 18
         }
       ],
       "properties": {
         "Node name for S&R": "PreviewAudio"
-      },
-      "widgets_values": [
-        null
-      ]
+      }
     },
     {
-      "id": 8,
-      "type": "PreviewAudio",
-      "pos": [
-        1127,
-        338
-      ],
-      "size": {
-        "0": 315,
-        "1": 76
-      },
-      "flags": {},
-      "order": 6,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "audio",
-          "type": "AUDIO",
-          "link": 12
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PreviewAudio"
-      },
-      "widgets_values": [
-        null
-      ]
-    },
-    {
-      "id": 2,
+      "id": 27,
       "type": "JEN_generate",
       "pos": [
-        142,
-        160
+        144,
+        155
       ],
       "size": {
         "0": 315,
@@ -223,20 +217,13 @@
       "flags": {},
       "order": 0,
       "mode": 0,
-      "inputs": [
-        {
-          "name": "format",
-          "type": "mp3",
-          "link": null
-        }
-      ],
       "outputs": [
         {
           "name": "audio",
           "type": "AUDIO",
           "links": [
-            7,
-            9
+            15,
+            18
           ],
           "shape": 3,
           "slot_index": 0
@@ -245,8 +232,8 @@
           "name": "id",
           "type": "STRING",
           "links": [
-            3,
-            11
+            16,
+            19
           ],
           "shape": 3,
           "slot_index": 1
@@ -255,9 +242,10 @@
           "name": "creditBalance",
           "type": "STRING",
           "links": [
-            2
+            17
           ],
-          "shape": 3
+          "shape": 3,
+          "slot_index": 2
         }
       ],
       "properties": {
@@ -268,20 +256,21 @@
         "mp3",
         0,
         10,
+        "",
         "output/JEN"
       ]
     },
     {
-      "id": 26,
+      "id": 28,
       "type": "JEN_extend",
       "pos": [
-        626,
-        257
+        550,
+        248
       ],
-      "size": [
-        315,
-        218
-      ],
+      "size": {
+        "0": 315,
+        "1": 242
+      },
       "flags": {},
       "order": 4,
       "mode": 0,
@@ -289,7 +278,7 @@
         {
           "name": "id",
           "type": "STRING",
-          "link": 11,
+          "link": 19,
           "widget": {
             "name": "id"
           }
@@ -300,7 +289,7 @@
           "name": "audio",
           "type": "AUDIO",
           "links": [
-            12
+            20
           ],
           "shape": 3,
           "slot_index": 0
@@ -309,7 +298,7 @@
           "name": "id",
           "type": "STRING",
           "links": [
-            13
+            21
           ],
           "shape": 3,
           "slot_index": 1
@@ -318,7 +307,7 @@
           "name": "creditBalance",
           "type": "STRING",
           "links": [
-            14
+            22
           ],
           "shape": 3,
           "slot_index": 2
@@ -333,70 +322,71 @@
         "mp3",
         0,
         20,
+        "",
         "output/JEN"
       ]
     }
   ],
   "links": [
     [
-      2,
-      2,
-      2,
-      4,
-      0,
-      "*"
-    ],
-    [
-      3,
-      2,
-      1,
-      5,
-      0,
-      "*"
-    ],
-    [
-      7,
-      2,
-      0,
-      9,
-      0,
-      "AUDIO"
-    ],
-    [
-      9,
-      2,
+      15,
+      27,
       0,
       15,
       0,
       "AUDIO"
     ],
     [
-      11,
-      2,
+      16,
+      27,
       1,
-      26,
+      5,
+      0,
+      "*"
+    ],
+    [
+      17,
+      27,
+      2,
+      4,
+      0,
+      "*"
+    ],
+    [
+      18,
+      27,
+      0,
+      9,
+      0,
+      "AUDIO"
+    ],
+    [
+      19,
+      27,
+      1,
+      28,
       0,
       "STRING"
     ],
     [
-      12,
-      26,
+      20,
+      28,
       0,
       8,
       0,
       "AUDIO"
     ],
     [
-      13,
-      26,
+      21,
+      28,
       1,
       6,
       0,
       "*"
     ],
     [
-      14,
-      26,
+      22,
+      28,
       2,
       7,
       0,
@@ -407,12 +397,17 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.8769226950000013,
+      "scale": 0.9646149645000083,
       "offset": [
-        -45.32096034802867,
-        210.90830240282628
+        -49.30998567097409,
+        193.94507240401148
       ]
-    }
+    },
+    "0246.VERSION": [
+      0,
+      0,
+      4
+    ]
   },
   "version": 0.4
 }
